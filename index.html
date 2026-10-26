@@ -16,6 +16,36 @@ main{max-width:none;padding-left:0;padding-right:0}
 .instrument:not([data-instrument="piano"]) .keyboard{grid-template-columns:repeat(13,minmax(0,1fr));gap:clamp(2px,.8vw,8px)}
 .instrument[data-instrument="guitar"] .keyboard{grid-template-columns:repeat(13,minmax(0,1fr))}
 @media(max-width:650px){main{padding-left:0;padding-right:0}.instrument{padding-left:2px;padding-right:2px}.key .labels{font-size:8px}.key kbd{font-size:9px}.under{flex-wrap:wrap;gap:6px}.instrument:not([data-instrument="piano"]) .key{height:58px}}
+
+/* Scale instrument height together with its available width. */
+.instrument[data-instrument="piano"] .keyboard{
+  height:clamp(160px,25vw,720px);
+}
+.instrument-art{
+  width:100%;
+  max-width:none;
+  height:auto;
+  aspect-ratio:820 / 250;
+}
+.instrument-art svg{display:block}
+.instrument:not([data-instrument="piano"]) .key{
+  height:auto;
+  min-height:44px;
+  aspect-ratio:1;
+  padding:4px 0;
+}
+.instrument[data-instrument="guitar"] .key{aspect-ratio:4 / 5}
+.instrument[data-instrument="guitar"] .keyboard{
+  background-size:100% 50%;
+  background-image:linear-gradient(0deg,transparent calc(50% - 1px),#c8a371 50%,transparent calc(50% + 1px));
+}
+@media(max-width:650px){
+  .instrument:not([data-instrument="piano"]) .keyboard{
+    grid-template-columns:repeat(7,minmax(0,1fr));
+    gap:6px;
+  }
+  .instrument:not([data-instrument="piano"]) .key .labels{font-size:10px}
+}
 </style></head><body><header><div class="brand"><span>♫</span> piano studio</div><small>A LITTLE SPACE FOR MUSIC</small></header><main><div class="intro"><div><div class="eyebrow">PLAY. FEEL. REPEAT.</div><h1>音を、<em>楽しもう。</em></h1><p>思いついたメロディを、指先から。<br>あなただけの小さなピアノスタジオ。</p></div><div class="note-display"><strong id="note">—</strong><small>NOW PLAYING</small></div></div><section class="instrument" id="instrument-panel" data-instrument="piano" aria-label="ピアノ"><div class="controls"><span class="indicator" id="status" role="status">演奏をはじめましょう</span><label>音色 <select id="instrument" aria-label="楽器の音色"><option value="piano">ピアノ</option><option value="trumpet">トランペット</option><option value="flute">フルート</option><option value="guitar">ギター</option></select></label><label>音量 <input id="volume" aria-label="音量" type="range" min="0" max="100" value="65"></label><button id="sustain" aria-pressed="false">サステイン OFF</button></div><div id="instrument-art" class="instrument-art" aria-hidden="true" hidden></div><div class="keyboard-scroll"><div id="keyboard" class="keyboard"></div></div><div class="under"><span>C4 — C6 · 2 OCTAVES</span><span>クリック・タッチ・キーボードで演奏</span></div></section><section class="tips"><article><b><span>01</span> キーボードで演奏</b><p>A S D F G H J でドレミファソラシ。各音に表示されたキーでも演奏できます。</p></article><article><b><span>02</span> 音を重ねてみよう</b><p>複数の音を同時に押すと和音に。スマートフォンのマルチタッチにも対応。</p></article><article><b><span>03</span> 余韻を楽しむ</b><p>スペースキーを押している間はサステイン。音を長く響かせられます。</p></article></section><footer>MADE FOR YOUR MOMENT OF MUSIC</footer></main><script src="piano.js"></script><script>
 for (const type of ['gesturestart','gesturechange','gestureend']) {
   document.addEventListener(type, event => event.preventDefault(), {passive:false});
